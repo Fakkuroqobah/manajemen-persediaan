@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Payroll">
-    <meta name="author" content="Agung Maulana">
+    <meta name="author" content="">
 
     <title>Payroll | Login</title>
 
@@ -35,9 +35,9 @@
 				<div class="card-body p-0">
 					<div class="p-5">
 						<div class="text-center">
-							<img src="{{ asset('img/logo.png') }}" class="logo mb-4">
+							<img src="{{ asset('logo.png') }}" class="logo mb-4">
 							<br />
-							<h1 class="h4 text-gray-900 mb-4">Payroll Kedata - Admin</h1>
+							<h1 class="h4 text-gray-900 mb-4">Inventory - Admin</h1>
 						</div>
 						
 						@if (session('danger'))
