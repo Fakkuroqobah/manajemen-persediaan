@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Payroll">
+    <meta name="description" content="Inventory">
     <meta name="author" content="">
 
-    <title>Payroll | Login</title>
+    <title>Inventory | Login</title>
 
 	{{-- Favicon --}}
 	<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/favicon/apple-touch-icon.png') }}">
