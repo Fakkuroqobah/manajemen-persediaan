@@ -55,7 +55,7 @@
                         <select name="id_barang_keluar" class="form-control" id="">
                             <option value="">Pilih barang keluar</option>
                             @foreach ($barang as $item)
-                                <option value="{{ $item->id_barang_keluar }}">{{ $item->barang->nama_barang }} ({{ $item->customer->nama_customer }})</option>
+                                <option value="{{ $item->id_barang_keluar }}">({{ $item->barang->id_barang }}) {{ $item->barang->nama_barang }} ({{ $item->customer->nama_customer }})</option>
                             @endforeach    
                         </select>
                     </div>
@@ -92,7 +92,7 @@
                         <select name="id_barang_keluar" class="form-control" id="">
                             <option value="">Pilih barang keluar</option>
                             @foreach ($barang as $item)
-                                <option value="{{ $item->id_barang_keluar }}">{{ $item->barang->nama_barang }} ({{ $item->customer->nama_customer }})</option>
+                                <option value="{{ $item->id_barang_keluar }}">({{ $item->barang->id_barang }}) {{ $item->barang->nama_barang }} ({{ $item->customer->nama_customer }})</option>
                             @endforeach    
                         </select>
                     </div>
