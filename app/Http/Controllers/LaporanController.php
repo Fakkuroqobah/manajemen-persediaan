@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Barang;
 use App\Models\BarangMasuk;
 use App\Models\BarangKeluar;
 use App\Models\Retur;
@@ -23,7 +24,11 @@ class LaporanController extends Controller
         $mulai = $request->filled('mulai') ? $request->mulai : null;
         $selesai = $request->filled('selesai') ? $request->selesai : null;
 
-        if($request->tipe == 'masuk') {
+        if($request->tipe == 'barang') {
+            $data = Barang::whereBetween('created_at', [$mulai, $selesai])->latest()->get();
+            $pdf = Pdf::loadView('pdf', compact('data', 'tipe', 'mulai','selesai'));
+            return $pdf->download('barang.pdf');
+        }else if($request->tipe == 'masuk') {
             $data = BarangMasuk::with(['barang', 'supplier'])->whereBetween('tanggal_barang_masuk', [$mulai, $selesai])->latest()->get();
             $pdf = Pdf::loadView('pdf', compact('data', 'tipe', 'mulai','selesai'));
             return $pdf->download('barang masuk.pdf');

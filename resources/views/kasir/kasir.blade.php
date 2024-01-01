@@ -1,9 +1,9 @@
 @extends('layouts.index')
 
-@section('title', 'Penjualan')
+@section('title', 'Kasir')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item active" aria-current="page">Penjualan</li>
+    <li class="breadcrumb-item active" aria-current="page">Kasir</li>
 @endsection
 
 @push('styles')
@@ -22,12 +22,10 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama customer</th>
-                        <th>Nama Kasir</th>
-                        <th>Jenis barang</th>
-                        <th>Nama barang</th>
-                        <th>Tanggal keluar</th>
-                        <th>Jumlah barang keluar</th>
+                        <th>Id</th>
+                        <th>Nama</th>
+                        <th>Alamat</th>
+                        <th>Telepon</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -53,39 +51,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="">Customer</label>
-                        <select name="id_customer" class="form-control" id="">
-                            <option value="">Pilih customer</option>
-                            @foreach ($customer as $item)
-                                <option value="{{ $item->id_customer }}">{{ $item->nama_customer }}</option>
-                            @endforeach    
-                        </select>
+                        <label for="">Nama kasir</label>
+                        <input type="text" name="nama" class="form-control" placeholder="Masukan nama kasir" autofocus autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="">Kasir</label>
-                        <select name="id_kasir" class="form-control" id="">
-                            <option value="">Pilih kasir</option>
-                            @foreach ($kasir as $item)
-                                <option value="{{ $item->id_kasir }}">{{ $item->nama_kasir }}</option>
-                            @endforeach    
-                        </select>
+                        <label for="">Alamat kasir</label>
+                        <input type="text" name="alamat" class="form-control" placeholder="Masukan alamat kasir" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="">Barang</label>
-                        <select name="id_barang" class="form-control" id="">
-                            <option value="">Pilih barang</option>
-                            @foreach ($barang as $item)
-                                <option value="{{ $item->id_barang }}">{{ $item->nama_barang }}</option>
-                            @endforeach    
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Jumlah barang</label>
-                        <input type="number" name="jumlah" class="form-control" placeholder="Keluaran jumlah barang" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Tanggal barang keluar</label>
-                        <input type="date" name="tanggal" class="form-control" placeholder="Keluaran tannggal barang keluar" autocomplete="off">
+                        <label for="">Telepon kasir</label>
+                        <input type="number" name="telepon" class="form-control" placeholder="Masukan telepon kasir" autocomplete="off">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -112,39 +87,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="">Customer</label>
-                        <select name="id_customer" class="form-control" id="">
-                            <option value="">Pilih customer</option>
-                            @foreach ($customer as $item)
-                                <option value="{{ $item->id_customer }}">{{ $item->nama_customer }}</option>
-                            @endforeach    
-                        </select>
+                        <label for="">Nama kasir</label>
+                        <input type="text" name="nama" class="form-control" placeholder="Masukan nama kasir" autofocus autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="">Kasir</label>
-                        <select name="id_kasir" class="form-control" id="">
-                            <option value="">Pilih kasir</option>
-                            @foreach ($kasir as $item)
-                                <option value="{{ $item->id_kasir }}">{{ $item->nama_kasir }}</option>
-                            @endforeach    
-                        </select>
+                        <label for="">Alamat kasir</label>
+                        <input type="text" name="alamat" class="form-control" placeholder="Masukan alamat kasir" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="">Barang</label>
-                        <select name="id_barang" class="form-control" id="">
-                            <option value="">Pilih barang</option>
-                            @foreach ($barang as $item)
-                                <option value="{{ $item->id_barang }}">{{ $item->nama_barang }}</option>
-                            @endforeach    
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Jumlah barang</label>
-                        <input type="number" name="jumlah" class="form-control" placeholder="Keluaran jumlah barang" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Tanggal barang keluar</label>
-                        <input type="date" name="tanggal" class="form-control" placeholder="Keluaran tannggal barang keluar" autocomplete="off">
+                        <label for="">Telepon kasir</label>
+                        <input type="number" name="telepon" class="form-control" placeholder="Masukan telepon kasir" autocomplete="off">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -172,58 +124,50 @@
 $(document).ready(function() {
     var table = $('#table').DataTable({
         processing: true,
-        ajax: '{{ route("penjualan.index") }}',
+        ajax: '{{ route("kasir.index") }}',
         columns: [
             { data: 'DT_RowIndex', name:'DT_RowIndex', searchable: false },
-            { data: 'customer.nama_customer', name: 'nama_customer' },
-            { data: 'kasir.nama_kasir', name: 'nama_kasir' },
-            { data: 'barang.jenis_barang', name: 'jenis_barang' },
-            { data: 'barang.nama_barang', name: 'nama_barang' },
-            { data: 'tanggal_barang_keluar', name: 'tanggal_barang_keluar' },
-            { data: 'jumlah_barang_keluar', name: 'jumlah_barang_keluar' },
+            { data: 'id_kasir', name: 'id_kasir' },
+            { data: 'nama_kasir', name: 'nama_kasir' },
+            { data: 'alamat_kasir', name: 'alamat_kasir' },
+            { data: 'telepon_kasir', name: 'telepon_kasir' },
             { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
         ],
         columnDefs: [
-            { "className": "text-center", "targets": [0, 7] },
+            { "className": "text-center", "targets": [0, 5] },
             { "width": "5%", "targets": 0 },
-            { "width": "20%", "targets": 7 },
+            { "width": "20%", "targets": 5 },
         ],
         dom: 'Bfrtip',
         buttons: [
             {
                 extend: 'pdf',
                 exportOptions: {
-                    columns: [0,1,2,3,4,5,6]
+                    columns: [0,1,2,3,4]
                 }
             }
         ]
     });
     
 
-    var modalEdit_id_customer = $('#modal-edit select[name="id_customer"]');
-    var modalEdit_id_kasir = $('#modal-edit select[name="id_kasir"]');
-    var modalEdit_id_barang = $('#modal-edit select[name="id_barang"]');
-    var modalEdit_jumlah = $('#modal-edit input[name="jumlah"]');
-    var modalEdit_tanggal = $('#modal-edit input[name="tanggal"]');
+    var modalEdit_nama = $('#modal-edit input[name="nama"]');
+    var modalEdit_alamat = $('#modal-edit input[name="alamat"]');
+    var modalEdit_telepon = $('#modal-edit input[name="telepon"]');
     $('#modal-edit').on('hidden.bs.modal', function () {
-        modalEdit_id_customer.val("");
-        modalEdit_id_kasir.val("");
-        modalEdit_id_barang.val("");
-        modalEdit_jumlah.val("");
-        modalEdit_tanggal.val("");
+        modalEdit_nama.val("");
+        modalEdit_alamat.val("");
+        modalEdit_telepon.val("");
     });
     $('#table').on('click', '.edit', function(e) {
         e.preventDefault()
 
-        var url = "{{ route('penjualan.show', ':id') }}";
+        var url = "{{ route('kasir.show', ':id') }}";
         url = url.replace(':id', $(this).attr('data-id'));
 
         $('#modal-edit button[name="submit"]').attr('data-id', $(this).attr('data-id'));
-        modalEdit_id_customer.attr("disabled", true);
-        modalEdit_id_kasir.attr("disabled", true);
-        modalEdit_id_barang.attr("disabled", true);
-        modalEdit_jumlah.attr("disabled", true);
-        modalEdit_tanggal.attr("disabled", true);
+        modalEdit_nama.attr("disabled", true);
+        modalEdit_alamat.attr("disabled", true);
+        modalEdit_telepon.attr("disabled", true);
         
         $.ajax({
             url: url,
@@ -232,28 +176,20 @@ $(document).ready(function() {
             processData: false,
             contentType: false
         }).done(function(msg) {
-            modalEdit_id_customer.attr("disabled", false);
-            modalEdit_id_customer.trigger('focus');
-            modalEdit_id_customer.val(msg.data.id_customer);
-            
-            modalEdit_id_kasir.attr("disabled", false);
-            modalEdit_id_kasir.val(msg.data.id_kasir);
+            modalEdit_nama.attr("disabled", false);
+            modalEdit_nama.trigger('focus');
+            modalEdit_nama.val(msg.data.nama_kasir);
 
-            modalEdit_id_barang.attr("disabled", false);
-            modalEdit_id_barang.val(msg.data.id_barang);
+            modalEdit_alamat.attr("disabled", false);
+            modalEdit_alamat.val(msg.data.alamat_kasir);
 
-            modalEdit_jumlah.attr("disabled", false);
-            modalEdit_jumlah.val(msg.data.jumlah_barang_keluar);
-
-            modalEdit_tanggal.attr("disabled", false);
-            modalEdit_tanggal.val(msg.data.tanggal_barang_keluar);
+            modalEdit_telepon.attr("disabled", false);
+            modalEdit_telepon.val(msg.data.telepon_kasir);
         }).fail(function(err) {
             alert("Terjadi kesalahan pada server");
-            modalEdit_id_customer.attr("disabled", false);
-            modalEdit_id_kasir.attr("disabled", false);
-            modalEdit_id_barang.attr("disabled", false);
-            modalEdit_jumlah.attr("disabled", false);
-            modalEdit_tanggal.attr("disabled", false);
+            modalEdit_nama.attr("disabled", false);
+            modalEdit_alamat.attr("disabled", false);
+            modalEdit_telepon.attr("disabled", false);
         });
     });
     $('#modal-edit').on('shown.bs.modal', function() {
@@ -276,7 +212,7 @@ $(document).ready(function() {
         var opt = {
             method: 'POST',
             aksi: 'tambah',
-            url: '{{ route("penjualan.store") }}',
+            url: '{{ route("kasir.store") }}',
             table: table,
             element: tambah
         };
@@ -304,7 +240,7 @@ $(document).ready(function() {
         form.append('aksi', 'edit');
         form.append('_method', 'PATCH');
 
-        var url = "{{ route('penjualan.update', ':id') }}";
+        var url = "{{ route('kasir.update', ':id') }}";
         url = url.replace(':id', $(this).attr('data-id'));
 
         var opt = {
@@ -326,7 +262,7 @@ $(document).ready(function() {
 
 
     $('#table').on('click', '.delete', function(event) {
-        var url = "{{ route('penjualan.destroy', ':id') }}";
+        var url = "{{ route('kasir.destroy', ':id') }}";
         url = url.replace(':id', $(this).attr('data-id'));
 
         var opt = {

@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tb_barang', function (Blueprint $table) {
-            $table->id('id_barang');
-            $table->string('gambar_barang', 255);
-            $table->string('nama_barang', 30);
-            $table->string('jenis_barang', 50);
-            $table->string('stok_barang', 30);
-            $table->double('harga_barang', 10, 2);
+        Schema::create('tb_kasir', function (Blueprint $table) {
+            $table->id('id_kasir');
+            $table->string('nama_kasir', 30);
+            $table->string('alamat_kasir', 30);
+            $table->string('telepon_kasir', 13);
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tb_barang');
+        Schema::dropIfExists('tb_kasir');
     }
 };

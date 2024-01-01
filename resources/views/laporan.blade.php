@@ -18,6 +18,7 @@
                     <div class="form-group">
                         <label for="">Tipe</label>
                         <select name="tipe" class="form-control">
+                            <option value="barang">Barang</option>
                             <option value="masuk">Barang Masuk</option>
                             <option value="keluar">Penjualan</option>
                             <option value="retur">Retur</option>

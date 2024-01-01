@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\BarangKeluar;
 use App\Models\Customer;
 use App\Models\Barang;
+use App\Models\Kasir;
 use DataTables;
 
 class BarangKeluarController extends Controller
@@ -15,9 +16,10 @@ class BarangKeluarController extends Controller
     {
         $barang = Barang::all();
         $customer = Customer::all();
+        $kasir = Kasir::all();
 
         if($request->ajax()) {
-            $data = BarangKeluar::with(['barang', 'customer'])->latest();
+            $data = BarangKeluar::with(['barang', 'customer', 'kasir'])->latest();
             
             return DataTables::of($data)
                 ->addIndexColumn()
@@ -28,7 +30,7 @@ class BarangKeluarController extends Controller
                 ->make(true);
         }
 
-        return view('barang_keluar.barang_keluar', compact('barang', 'customer'));
+        return view('barang_keluar.barang_keluar', compact('barang', 'customer', 'kasir'));
     }
 
     public function store(Request $request)
@@ -38,6 +40,7 @@ class BarangKeluarController extends Controller
             'jumlah' => 'required',
             'id_barang' => 'required',
             'id_customer' => 'required',
+            'id_kasir' => 'required',
         ]);
 
         $check = Barang::findOrFail($request->id_barang);
@@ -50,7 +53,8 @@ class BarangKeluarController extends Controller
                 'tanggal_barang_keluar' => $request->tanggal,
                 'jumlah_barang_keluar' => $request->jumlah,
                 'id_barang' => $request->id_barang,
-                'id_customer' => $request->id_customer
+                'id_customer' => $request->id_customer,
+                'id_kasir' => $request->id_kasir
             ]);
 
             $data = Barang::findOrFail($request->id_barang);
@@ -78,6 +82,7 @@ class BarangKeluarController extends Controller
             'jumlah' => 'required',
             'id_barang' => 'required',
             'id_customer' => 'required',
+            'id_kasir' => 'required',
         ]);
 
         $data = BarangKeluar::findOrFail($id);
@@ -86,7 +91,8 @@ class BarangKeluarController extends Controller
                 'tanggal_barang_keluar' => $request->tanggal,
                 'jumlah_barang_keluar' => $request->jumlah,
                 'id_barang' => $request->id_barang,
-                'id_customer' => $request->id_customer
+                'id_customer' => $request->id_customer,
+                'id_kasir' => $request->id_kasir
             ]);
 
             return $this->res(200, 'Berhasil', $data);

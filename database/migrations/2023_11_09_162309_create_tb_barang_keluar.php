@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('jumlah_barang_keluar');
             $table->unsignedBigInteger('id_barang');
             $table->unsignedBigInteger('id_customer');
+            $table->unsignedBigInteger('id_kasir');
             $table->timestamps();
         });
 
@@ -25,6 +26,9 @@ return new class extends Migration
                   ->cascadeOnDelete()
                   ->cascadeOnUpdate();
             $table->foreign('id_customer')->references('id_customer')->on('tb_customer')
+                  ->cascadeOnDelete()
+                  ->cascadeOnUpdate();
+            $table->foreign('id_kasir')->references('id_kasir')->on('tb_kasir')
                   ->cascadeOnDelete()
                   ->cascadeOnUpdate();
         });

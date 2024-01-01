@@ -8,7 +8,7 @@
     <meta name="description" content="Inventory">
     <meta name="author" content="">
 
-    <title>Inventory | @yield('title')</title>
+    <title>Persediaan | @yield('title')</title>
 
     {{-- Custom fonts for this template --}}
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -74,7 +74,7 @@
             <div class="sidebar-brand-icon">
                 <i class="fas fa-money-bill"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">Inventory</div>
+            <div class="sidebar-brand-text mx-3">Persediaan</div>
         </a>
 
         <hr class="sidebar-divider my-0">
@@ -106,6 +106,13 @@
             </a>
         </li>
         <hr class="sidebar-divider my-0">
+        <li class="nav-item {{ Request::segment(1) === 'kasir' ? 'active' : null }}">
+            <a class="nav-link" href="{{ route('kasir.index') }}">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Kasir</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider my-0">
         <li class="nav-item {{ Request::segment(1) === 'barang-masuk' ? 'active' : null }}">
             <a class="nav-link" href="{{ route('barang-masuk.index') }}">
                 <i class="fas fa-clipboard-list"></i>
@@ -131,6 +138,13 @@
             <a class="nav-link" href="{{ route('laporan.index') }}">
                 <i class="fas fa-clipboard-list"></i>
                 <span>Laporan</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider my-0">
+        <li class="nav-item {{ Request::segment(1) === 'admin' ? 'active' : null }}">
+            <a class="nav-link" href="{{ route('admin.index') }}">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Admin</span>
             </a>
         </li>
         

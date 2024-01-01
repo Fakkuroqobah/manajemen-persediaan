@@ -120,7 +120,14 @@
         <table style="width: 100%">
             <thead>
                 <tr>
-                    @if ($tipe == 'masuk')
+                    @if ($tipe == 'barang')
+                        <th>No</th>
+                        <th>Gambar</th>
+                        <th>Nama</th>
+                        <th>Jenis</th>
+                        <th>Harga</th>
+                        <th>Stok</th>
+                    @elseif ($tipe == 'masuk')
                         <th>No</th>
                         <th>Nama supplier</th>
                         <th>Jenis barang</th>
@@ -133,7 +140,7 @@
                         <th>Jenis barang</th>
                         <th>Nama barang</th>
                         <th>Tanggal keluar</th>
-                        <th>Jumlah barang keluar</th>
+                        <th>Jumlah Penjualan</th>
                     @else
                         <th>No</th>
                         <th>Nama customer</th>
@@ -149,7 +156,22 @@
                     $total = 0;
                 @endphp
                 @foreach ($data as $item)
-                    @if ($tipe == 'masuk')
+                    @if ($tipe == 'barang')
+                        @php
+                            $src = $item->gambar_barang;
+                        @endphp
+                        <tr>
+                            <td>{{ $no++ }}</td>
+                            <td>{!! '<img src="'. public_path("storage/$src") .'" style="width: 120px">' !!}</td>
+                            <td>{{ $item->nama_barang }}</td>
+                            <td>{{ $item->jenis_barang }}</td>
+                            <td>{{ $item->harga_barang }}</td>
+                            <td>{{ $item->stok_barang }}</td>
+                        </tr>
+                        @php
+                            $total += $item->stok_barang;
+                        @endphp
+                    @elseif ($tipe == 'masuk')
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $item->supplier->nama_supplier }}</td>
@@ -188,10 +210,12 @@
                 @endforeach
                 
                 <tr>
-                    @if ($tipe == 'masuk')
+                    @if ($tipe == 'barang')
+                        <td colspan="5"><b>Total stok barang</b></td>
+                    @elseif ($tipe == 'masuk')
                         <td colspan="5"><b>Total barang masuk</b></td>
                     @elseif ($tipe == 'keluar')
-                        <td colspan="5"><b>Total barang keluar</b></td>
+                        <td colspan="5"><b>Total penjualan</b></td>
                     @else
                         <td colspan="4"><b>Total retur</b></td>
                     @endif

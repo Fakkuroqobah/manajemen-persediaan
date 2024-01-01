@@ -20,4 +20,9 @@ class BarangKeluar extends Model
     {
         return $this->belongsTo('App\Models\Customer', 'id_customer', 'id_customer');
     }
+
+    public function kasir()
+    {
+        return $this->belongsTo('App\Models\Kasir', 'id_kasir', 'id_kasir');
+    }
 }

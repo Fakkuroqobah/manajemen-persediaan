@@ -10,6 +10,7 @@ use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\ReturController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\KasirController;
 
 Route::get('/', [LoginController::class, 'viewLogin'])->name('home');
 Route::post('/', [LoginController::class, 'login'])->name('login');
@@ -25,3 +26,5 @@ Route::resource('barang-masuk', BarangMasukController::class);
 Route::resource('penjualan', BarangKeluarController::class);
 Route::resource('retur', ReturController::class);
 Route::resource('laporan', LaporanController::class);
+Route::resource('admin', AdminController::class);
+Route::resource('kasir', KasirController::class);

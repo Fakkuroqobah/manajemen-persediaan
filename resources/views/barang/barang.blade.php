@@ -23,6 +23,7 @@
                     <tr>
                         <th>No</th>
                         <th>Id</th>
+                        <th>Gambar</th>
                         <th>Nama</th>
                         <th>Jenis</th>
                         <th>Stok</th>
@@ -51,6 +52,10 @@
                         <ul class="m-0"></ul>
                     </div>
 
+                    <div class="form-group">
+                        <label for="">Gambar barang</label>
+                        <input type="file" name="gambar" class="form-control">
+                    </div>
                     <div class="form-group">
                         <label for="">Nama barang</label>
                         <input type="text" name="nama" class="form-control" placeholder="Masukan nama barang" autofocus autocomplete="off">
@@ -91,6 +96,10 @@
                         <ul class="m-0"></ul>
                     </div>
 
+                    <div class="form-group">
+                        <label for="">Gambar barang</label>
+                        <input type="file" name="gambar" class="form-control">
+                    </div>
                     <div class="form-group">
                         <label for="">Nama barang</label>
                         <input type="text" name="nama" class="form-control" placeholder="Masukan nama barang" autofocus autocomplete="off">
@@ -137,6 +146,7 @@ $(document).ready(function() {
         columns: [
             { data: 'DT_RowIndex', name:'DT_RowIndex', searchable: false },
             { data: 'id_barang', name: 'id_barang' },
+            { data: 'gambar_barang', name: 'gambar_barang' },
             { data: 'nama_barang', name: 'nama_barang' },
             { data: 'jenis_barang', name: 'jenis_barang' },
             { data: 'stok_barang', name: 'stok_barang' },
