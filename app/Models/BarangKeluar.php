@@ -13,7 +13,7 @@ class BarangKeluar extends Model
 
     public function barang()
     {
-        return $this->belongsTo('App\Models\Barang', 'id_barang', 'id_barang');
+        return $this->hasMany('App\Models\BarangKeluarDetail', 'id_barang_keluar', 'id_barang_keluar');
     }
 
     public function customer()

@@ -79,45 +79,17 @@
         </a>
 
         <hr class="sidebar-divider my-0">
-        <li class="nav-item {{ Request::segment(1) === 'dashboard' ? 'active' : null }}">
-            <a class="nav-link" href="{{ route('dashboard') }}">
-                <i class="fas fa-clipboard-list"></i>
-                <span>Dashboard</span>
-            </a>
-        </li>
-        <hr class="sidebar-divider my-0">
         <li class="nav-item {{ Request::segment(1) === 'barang' ? 'active' : null }}">
-            <a class="nav-link" href="{{ route('barang.index') }}">
+            <a class="nav-link" href="{{ route('cashier_barang') }}">
                 <i class="fas fa-clipboard-list"></i>
                 <span>Barang</span>
             </a>
         </li>
         <hr class="sidebar-divider my-0">
         <li class="nav-item {{ Request::segment(1) === 'customer' ? 'active' : null }}">
-            <a class="nav-link" href="{{ route('customer.index') }}">
+            <a class="nav-link" href="{{ route('cashier_customer') }}">
                 <i class="fas fa-clipboard-list"></i>
                 <span>Customer</span>
-            </a>
-        </li>
-        <hr class="sidebar-divider my-0">
-        <li class="nav-item {{ Request::segment(1) === 'supplier' ? 'active' : null }}">
-            <a class="nav-link" href="{{ route('supplier.index') }}">
-                <i class="fas fa-clipboard-list"></i>
-                <span>Supplier</span>
-            </a>
-        </li>
-        <hr class="sidebar-divider my-0">
-        <li class="nav-item {{ Request::segment(1) === 'kasir' ? 'active' : null }}">
-            <a class="nav-link" href="{{ route('kasir.index') }}">
-                <i class="fas fa-clipboard-list"></i>
-                <span>Kasir</span>
-            </a>
-        </li>
-        <hr class="sidebar-divider my-0">
-        <li class="nav-item {{ Request::segment(1) === 'barang-masuk' ? 'active' : null }}">
-            <a class="nav-link" href="{{ route('barang-masuk.index') }}">
-                <i class="fas fa-clipboard-list"></i>
-                <span>Barang Masuk</span>
             </a>
         </li>
         <hr class="sidebar-divider my-0">
@@ -132,20 +104,6 @@
             <a class="nav-link" href="{{ route('retur.index') }}">
                 <i class="fas fa-clipboard-list"></i>
                 <span>Retur</span>
-            </a>
-        </li>
-        <hr class="sidebar-divider my-0">
-        <li class="nav-item {{ Request::segment(1) === 'laporan' ? 'active' : null }}">
-            <a class="nav-link" href="{{ route('laporan.index') }}">
-                <i class="fas fa-clipboard-list"></i>
-                <span>Laporan</span>
-            </a>
-        </li>
-        <hr class="sidebar-divider my-0">
-        <li class="nav-item {{ Request::segment(1) === 'admin' ? 'active' : null }}">
-            <a class="nav-link" href="{{ route('admin.index') }}">
-                <i class="fas fa-clipboard-list"></i>
-                <span>Admin</span>
             </a>
         </li>
         
@@ -174,11 +132,11 @@
                     {{-- Nav Item - User Information --}}
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-lg-inline text-gray-600 small">{{ ucfirst(Auth::user()->username) }}</span>
+                            <span class="mr-2 d-lg-inline text-gray-600 small">{{ ucfirst(Auth::guard('kasir')->user()->username) }}</span>
                         </a>
                         
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}">
+                            <a class="dropdown-item" href="{{ route('cahsier_logout') }}">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout
                             </a>

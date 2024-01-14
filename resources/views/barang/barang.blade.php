@@ -154,16 +154,16 @@ $(document).ready(function() {
             { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
         ],
         columnDefs: [
-            { "className": "text-center", "targets": [0, 6] },
+            { "className": "text-center", "targets": [0, 7] },
             { "width": "5%", "targets": 0 },
-            { "width": "20%", "targets": 6 },
+            { "width": "20%", "targets": 7 },
         ],
         dom: 'Bfrtip',
         buttons: [
             {
                 extend: 'pdf',
                 exportOptions: {
-                    columns: [0,1,2,3,4,5]
+                    columns: [0,1,2,3,4,5,6]
                 }
             }
         ]

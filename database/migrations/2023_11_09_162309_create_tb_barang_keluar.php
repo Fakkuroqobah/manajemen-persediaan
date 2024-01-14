@@ -14,17 +14,13 @@ return new class extends Migration
         Schema::create('tb_barang_keluar', function (Blueprint $table) {
             $table->id('id_barang_keluar');
             $table->date('tanggal_barang_keluar');
-            $table->integer('jumlah_barang_keluar');
-            $table->unsignedBigInteger('id_barang');
             $table->unsignedBigInteger('id_customer');
             $table->unsignedBigInteger('id_kasir');
+            $table->integer('jumlah_bayar')->nullable();
             $table->timestamps();
         });
 
         Schema::table('tb_barang_keluar', function (Blueprint $table) {
-            $table->foreign('id_barang')->references('id_barang')->on('tb_barang')
-                  ->cascadeOnDelete()
-                  ->cascadeOnUpdate();
             $table->foreign('id_customer')->references('id_customer')->on('tb_customer')
                   ->cascadeOnDelete()
                   ->cascadeOnUpdate();

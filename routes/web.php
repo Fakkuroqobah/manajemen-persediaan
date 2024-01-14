@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LoginKasirController;
+use App\Http\Controllers\KasirBarangController;
+use App\Http\Controllers\KasirCustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CustomerController;
@@ -11,13 +14,21 @@ use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\ReturController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\KasirController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', [LoginController::class, 'viewLogin'])->name('home');
 Route::post('/', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::get('/cashier', [LoginKasirController::class, 'viewLogin'])->name('cashier');
+Route::post('/cashier', [LoginKasirController::class, 'login'])->name('cashier_login');
+Route::get('/cashier/logout', [LoginKasirController::class, 'logout'])->name('cahsier_logout');
+Route::get('/cashier/barang', [KasirBarangController::class, 'index'])->name('cashier_barang');
+Route::get('/cashier/customer', [KasirCustomerController::class, 'index'])->name('cashier_customer');
+
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('download', [LaporanController::class, 'download'])->name('download');
+Route::get('/penjualan/nota/{id}/{jumlah}', [BarangKeluarController::class, 'nota'])->name('nota');
 
 Route::resource('barang', BarangController::class);
 Route::resource('customer', CustomerController::class);

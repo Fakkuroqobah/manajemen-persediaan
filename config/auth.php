@@ -46,6 +46,17 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'kasir' => [
+            'driver' => 'session',
+            'provider' => 'kasir',
+        ],
+
+        'api-kasir' => [
+            'driver' => 'token',
+            'provider' => 'kasir',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -69,6 +80,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
+        ],
+
+        'kasir' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Kasir::class,
         ],
 
         // 'users' => [

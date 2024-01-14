@@ -37,7 +37,7 @@
 						<div class="text-center">
 							<img src="{{ asset('logo1.png') }}" class="logo mb-4">
 							<br />
-							<h1 class="h4 text-gray-900 mb-4">Persediaan Barang - Admin</h1>
+							<h1 class="h4 text-gray-900 mb-4">Persediaan Barang - Kasir</h1>
 						</div>
 						
 						@if (session('danger'))
@@ -49,7 +49,7 @@
 							</div>
 						@endif
 
-						<form action="{{ route('login') }}" method="POST" class="user">
+						<form action="{{ route('cashier_login') }}" method="POST" class="user">
 							@csrf
 
 							<div class="form-group">
@@ -62,10 +62,6 @@
 
 							<button type="submit" class="btn btn-success btn-user btn-block">Login</button>
 						</form>
-
-						<div class="text-center mt-4">
-							<a href="{{ route('cashier') }}">Login sebagai kasir</a>
-						</div>
 					</div>
 				</div>
 			</div>

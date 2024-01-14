@@ -23,6 +23,7 @@
                     <tr>
                         <th>No</th>
                         <th>Id</th>
+                        <th>Username</th>
                         <th>Nama</th>
                         <th>Alamat</th>
                         <th>Telepon</th>
@@ -62,6 +63,14 @@
                         <label for="">Telepon kasir</label>
                         <input type="number" name="telepon" class="form-control" placeholder="Masukan telepon kasir" autocomplete="off">
                     </div>
+                    <div class="form-group">
+                        <label for="">Username kasir</label>
+                        <input type="text" name="username" class="form-control" placeholder="Masukan username kasir" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Password kasir</label>
+                        <input type="password" name="password" class="form-control" placeholder="Masukan password kasir" autocomplete="off">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" name="close-modal" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -98,6 +107,14 @@
                         <label for="">Telepon kasir</label>
                         <input type="number" name="telepon" class="form-control" placeholder="Masukan telepon kasir" autocomplete="off">
                     </div>
+                    <div class="form-group">
+                        <label for="">Username kasir</label>
+                        <input type="text" name="username" class="form-control" placeholder="Masukan username kasir" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Password kasir</label>
+                        <input type="password" name="password" class="form-control" placeholder="Masukan password kasir" autocomplete="off">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" name="close-modal" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -128,15 +145,16 @@ $(document).ready(function() {
         columns: [
             { data: 'DT_RowIndex', name:'DT_RowIndex', searchable: false },
             { data: 'id_kasir', name: 'id_kasir' },
+            { data: 'username', name: 'username' },
             { data: 'nama_kasir', name: 'nama_kasir' },
             { data: 'alamat_kasir', name: 'alamat_kasir' },
             { data: 'telepon_kasir', name: 'telepon_kasir' },
             { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
         ],
         columnDefs: [
-            { "className": "text-center", "targets": [0, 5] },
+            { "className": "text-center", "targets": [0, 6] },
             { "width": "5%", "targets": 0 },
-            { "width": "20%", "targets": 5 },
+            { "width": "20%", "targets": 6 },
         ],
         dom: 'Bfrtip',
         buttons: [
@@ -153,10 +171,12 @@ $(document).ready(function() {
     var modalEdit_nama = $('#modal-edit input[name="nama"]');
     var modalEdit_alamat = $('#modal-edit input[name="alamat"]');
     var modalEdit_telepon = $('#modal-edit input[name="telepon"]');
+    var modalEdit_username = $('#modal-edit input[name="username"]');
     $('#modal-edit').on('hidden.bs.modal', function () {
         modalEdit_nama.val("");
         modalEdit_alamat.val("");
         modalEdit_telepon.val("");
+        modalEdit_username.val("");
     });
     $('#table').on('click', '.edit', function(e) {
         e.preventDefault()
@@ -168,6 +188,7 @@ $(document).ready(function() {
         modalEdit_nama.attr("disabled", true);
         modalEdit_alamat.attr("disabled", true);
         modalEdit_telepon.attr("disabled", true);
+        modalEdit_username.attr("disabled", true);
         
         $.ajax({
             url: url,
@@ -185,11 +206,15 @@ $(document).ready(function() {
 
             modalEdit_telepon.attr("disabled", false);
             modalEdit_telepon.val(msg.data.telepon_kasir);
+
+            modalEdit_username.attr("disabled", false);
+            modalEdit_username.val(msg.data.username);
         }).fail(function(err) {
             alert("Terjadi kesalahan pada server");
             modalEdit_nama.attr("disabled", false);
             modalEdit_alamat.attr("disabled", false);
             modalEdit_telepon.attr("disabled", false);
+            modalEdit_username.attr("disabled", false);
         });
     });
     $('#modal-edit').on('shown.bs.modal', function() {

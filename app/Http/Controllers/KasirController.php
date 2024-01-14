@@ -32,14 +32,18 @@ class KasirController extends Controller
         $request->validate([
             'nama' => 'required|max:30',
             'alamat' => 'required|max:30',
-            'telepon' => 'required|max:13'
+            'telepon' => 'required|max:13',
+            'username' => 'required|max:20|unique:tb_admin,username',
+            'password' => 'required|max:20'
         ]);
 
         try {
             $data = Kasir::create([
                 'nama_kasir' => $request->nama,
                 'alamat_kasir' => $request->alamat,
-                'telepon_kasir' => $request->telepon
+                'telepon_kasir' => $request->telepon,
+                'username' => $request->username,
+                'password' => bcrypt($request->password)
             ]);
 
             return $this->res(201, 'Berhasil', $data);
@@ -60,15 +64,20 @@ class KasirController extends Controller
         $request->validate([
             'nama' => 'required|max:30',
             'alamat' => 'required|max:30',
-            'telepon' => 'required|max:13'
+            'telepon' => 'required|max:13',
+            'username' => 'required|max:20',
+            'password' => 'nullable|max:20'
         ]);
 
         $data = Kasir::findOrFail($id);
+        $oldPassword = $data->password;
         try {
             $data->update([
                 'nama_kasir' => $request->nama,
                 'alamat_kasir' => $request->alamat,
-                'telepon_kasir' => $request->telepon
+                'telepon_kasir' => $request->telepon,
+                'username' => $request->username,
+                'password' => $request->filled('password') ? bcrypt($request->password) : $oldPassword
             ]);
 
             return $this->res(200, 'Berhasil', $data);

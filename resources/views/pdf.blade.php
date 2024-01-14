@@ -94,10 +94,12 @@
             <tr>
                 <td>Nama Laporan</td>
                 <td>:</td>
-                @if ($tipe == 'masuk')
+                @if ($tipe == 'barang')
+                    <td>Stok Barang</td>
+                @elseif ($tipe == 'masuk')
                     <td>Laporan Barang Masuk</td>
                 @elseif ($tipe == 'keluar')
-                    <td>Laporan Barang Keluar</td>
+                    <td>Laporan Penjualan</td>
                 @else
                     <td>Laporan Retur</td>
                 @endif
@@ -139,7 +141,7 @@
                         <th>Nama customer</th>
                         <th>Jenis barang</th>
                         <th>Nama barang</th>
-                        <th>Tanggal keluar</th>
+                        <th>Tanggal jual</th>
                         <th>Jumlah Penjualan</th>
                     @else
                         <th>No</th>

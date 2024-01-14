@@ -23,9 +23,8 @@
                     <tr>
                         <th>No</th>
                         <th>Nama customer</th>
-                        <th>Nama barang</th>
+                        <th>List barang</th>
                         <th>Tanggal retur</th>
-                        <th>Jumlah barang retur</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -51,12 +50,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="">Barang keluar</label>
+                        <label for="">Penjualan</label>
                         <select name="id_barang_keluar" class="form-control" id="">
-                            <option value="">Pilih barang keluar</option>
+                            <option value="">Pilih penjualan</option>
                             @foreach ($barang as $item)
-                                <option value="{{ $item->id_barang_keluar }}">({{ $item->barang->id_barang }}) {{ $item->barang->nama_barang }} ({{ $item->customer->nama_customer }})</option>
-                            @endforeach    
+                                <option value="{{ $item->id_barang_keluar }}">ID: {{ $item->id_barang_keluar }}, Customer: {{ $item->customer->nama_customer }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
@@ -88,11 +87,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="">Barang keluar</label>
+                        <label for="">Penjualan</label>
                         <select name="id_barang_keluar" class="form-control" id="">
-                            <option value="">Pilih barang keluar</option>
+                            <option value="">Pilih penjualan</option>
                             @foreach ($barang as $item)
-                                <option value="{{ $item->id_barang_keluar }}">({{ $item->barang->id_barang }}) {{ $item->barang->nama_barang }} ({{ $item->customer->nama_customer }})</option>
+                                <option value="{{ $item->id_barang_keluar }}">ID: {{ $item->id_barang_keluar }}, Customer: {{ $item->customer->nama_customer }}</option>
                             @endforeach    
                         </select>
                     </div>
@@ -130,22 +129,21 @@ $(document).ready(function() {
         columns: [
             { data: 'DT_RowIndex', name:'DT_RowIndex', searchable: false },
             { data: 'penjualan.customer.nama_customer', name: 'nama_customer' },
-            { data: 'penjualan.barang.nama_barang', name: 'nama_barang' },
+            { data: 'barang', name: 'barang' },
             { data: 'tanggal_barang_retur', name: 'tanggal_barang_retur' },
-            { data: 'penjualan.jumlah_barang_keluar', name: 'jumlah_barang_keluar' },
             { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
         ],
         columnDefs: [
-            { "className": "text-center", "targets": [0, 5] },
+            { "className": "text-center", "targets": [0, 4] },
             { "width": "5%", "targets": 0 },
-            { "width": "20%", "targets": 5 },
+            { "width": "20%", "targets": 4 },
         ],
         dom: 'Bfrtip',
         buttons: [
             {
                 extend: 'pdf',
                 exportOptions: {
-                    columns: [0,1,2,3,4]
+                    columns: [0,1,2,3]
                 }
             }
         ]
