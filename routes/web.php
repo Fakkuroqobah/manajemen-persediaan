@@ -11,6 +11,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\BarangKeluarController;
+use App\Http\Controllers\KasirBarangKeluarController;
+use App\Http\Controllers\KasirReturController;
 use App\Http\Controllers\ReturController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\KasirController;
@@ -25,6 +27,8 @@ Route::post('/cashier', [LoginKasirController::class, 'login'])->name('cashier_l
 Route::get('/cashier/logout', [LoginKasirController::class, 'logout'])->name('cahsier_logout');
 Route::get('/cashier/barang', [KasirBarangController::class, 'index'])->name('cashier_barang');
 Route::get('/cashier/customer', [KasirCustomerController::class, 'index'])->name('cashier_customer');
+Route::get('/cashier/penjualan', [KasirBarangKeluarController::class, 'index'])->name('cashier_jual');
+Route::get('/cashier/retur', [KasirReturController::class, 'index'])->name('cashier_retur');
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('download', [LaporanController::class, 'download'])->name('download');
