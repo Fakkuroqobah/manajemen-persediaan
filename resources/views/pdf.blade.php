@@ -139,16 +139,14 @@
                     @elseif ($tipe == 'keluar')
                         <th>No</th>
                         <th>Nama customer</th>
-                        <th>Jenis barang</th>
-                        <th>Nama barang</th>
+                        <th>Nama kasir</th>
+                        <th>List barang</th>
                         <th>Tanggal jual</th>
-                        <th>Jumlah Penjualan</th>
                     @else
                         <th>No</th>
                         <th>Nama customer</th>
                         <th>Nama barang</th>
                         <th>Tanggal retur</th>
-                        <th>Jumlah barang retur</th>
                     @endif
                 </tr>
             </thead>
@@ -189,25 +187,73 @@
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $item->customer->nama_customer }}</td>
-                            <td>{{ $item->barang->jenis_barang }}</td>
-                            <td>{{ $item->barang->nama_barang }}</td>
-                            <td>{{ $item->tanggal_barang_keluar }}</td>
-                            <td>{{ $item->jumlah_barang_keluar }}</td>
+                            <td>{{ $item->kasir->nama_kasir }}</td>
+                            <td>
+                                <table style="width: 100%">
+                                    @php
+                                        $total2 = 0;
+                                    @endphp
+                                    <tr>
+                                        <th>Nama barang</th>
+                                        <th>Jumlah</th>
+                                        <th>Harga satuan</th>
+                                        <th>Total</th>
+                                    </tr>
+                                    @foreach ($item->penjualan->barang as $val)
+                                        @php
+                                            $total += $val->jumlah_barang_keluar * $val->barang->harga_barang;
+                                            $total2 += $val->jumlah_barang_keluar * $val->barang->harga_barang;
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $val->barang->nama_barang }}</td>
+                                            <td>{{ $val->jumlah_barang_keluar }}</td>
+                                            <td>{{ $val->barang->harga_barang }}</td>
+                                            <td>{{ $val->jumlah_barang_keluar * $val->barang->harga_barang }}</td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td colspan="3">Total:</td>
+                                        <td>{{ $total2 }}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>{{ $item->tanggal_penjualan }}</td>
                         </tr>
-                        @php
-                            $total += $item->jumlah_barang_keluar;
-                        @endphp
                     @else
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $item->penjualan->customer->nama_customer }}</td>
-                            <td>{{ $item->penjualan->barang->nama_barang }}</td>
+                            <td>
+                                <table style="width: 100%">
+                                    @php
+                                        $total2 = 0;
+                                    @endphp
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama customer</th>
+                                        <th>List barang</th>
+                                        <th>Tanggal retur</th>
+                                    </tr>
+                                    @foreach ($item->penjualan->barang as $val)
+                                        @php
+                                            $total += $val->jumlah_barang_keluar * $val->barang->harga_barang;
+                                            $total2 += $val->jumlah_barang_keluar * $val->barang->harga_barang;
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $val->barang->nama_barang }}</td>
+                                            <td>{{ $val->jumlah_barang_keluar }}</td>
+                                            <td>{{ $val->barang->harga_barang }}</td>
+                                            <td>{{ $val->jumlah_barang_keluar * $val->barang->harga_barang }}</td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td colspan="3">Total:</td>
+                                        <td>{{ $total2 }}</td>
+                                    </tr>
+                                </table>
+                            </td>
                             <td>{{ $item->tanggal_barang_retur }}</td>
-                            <td>{{ $item->penjualan->jumlah_barang_keluar }}</td>
                         </tr>
-                        @php
-                            $total += $item->penjualan->jumlah_barang_keluar;
-                        @endphp
                     @endif
                 @endforeach
                 
@@ -217,7 +263,7 @@
                     @elseif ($tipe == 'masuk')
                         <td colspan="5"><b>Total barang masuk</b></td>
                     @elseif ($tipe == 'keluar')
-                        <td colspan="5"><b>Total penjualan</b></td>
+                        <td colspan="4"><b>Total penjualan</b></td>
                     @else
                         <td colspan="4"><b>Total retur</b></td>
                     @endif

@@ -56,11 +56,11 @@ class KasirBarangKeluarController extends Controller
                     return $view;
                 })
                 ->addColumn('aksi', function($data) {
-                    return '<a href="#" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#modal-edit" data-id="'. $data->id_barang_keluar .'">Tambah</a>
+                    return '<a href="#" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#modal-edit" data-id="'. $data->id_penjualan .'">Tambah</a>
                         <span class="mx-1"></span>
-                        <a href="#" class="btn btn-sm btn-success mt-2 mt-lg-0 mb-2 mb-lg-0 nota" data-toggle="modal" data-target="#modal-nota" data-id="'. $data->id_barang_keluar .'">Nota</a>
+                        <a href="#" class="btn btn-sm btn-success mt-2 mt-lg-0 mb-2 mb-lg-0 nota" data-toggle="modal" data-target="#modal-nota" data-id="'. $data->id_penjualan .'">Nota</a>
                         <span class="mx-1"></span>
-                        <a href="#" class="btn btn-sm btn-danger mt-2 mt-lg-0 mb-2 mb-lg-0 delete" data-id="'. $data->id_barang_keluar .'">Delete</a>';
+                        <a href="#" class="btn btn-sm btn-danger mt-2 mt-lg-0 mb-2 mb-lg-0 delete" data-id="'. $data->id_penjualan .'">Delete</a>';
                 })
                 ->rawColumns(['aksi', 'barang'])
                 ->make(true);
@@ -87,7 +87,7 @@ class KasirBarangKeluarController extends Controller
         DB::beginTransaction();
         try {
             $data = BarangKeluar::create([
-                'tanggal_barang_keluar' => $request->tanggal,
+                'tanggal_penjualan' => $request->tanggal,
                 'id_customer' => $request->id_customer,
                 'id_kasir' => $request->id_kasir
             ]);
@@ -95,7 +95,7 @@ class KasirBarangKeluarController extends Controller
             BarangKeluarDetail::create([
                 'jumlah_barang_keluar' => $request->jumlah,
                 'id_barang' => $request->id_barang,
-                'id_barang_keluar' => $data->id_barang_keluar
+                'id_penjualan' => $data->id_penjualan
             ]);
 
             $data = Barang::findOrFail($request->id_barang);
@@ -145,7 +145,7 @@ class KasirBarangKeluarController extends Controller
             BarangKeluarDetail::create([
                 'jumlah_barang_keluar' => $request->jumlah,
                 'id_barang' => $request->id_barang,
-                'id_barang_keluar' => $id
+                'id_penjualan' => $id
             ]);
 
             $data = Barang::findOrFail($request->id_barang);

@@ -51,10 +51,10 @@
 
                     <div class="form-group">
                         <label for="">Penjualan</label>
-                        <select name="id_barang_keluar" class="form-control" id="">
+                        <select name="id_penjualan" class="form-control" id="">
                             <option value="">Pilih penjualan</option>
                             @foreach ($barang as $item)
-                                <option value="{{ $item->id_barang_keluar }}">ID: {{ $item->id_barang_keluar }}, Customer: {{ $item->customer->nama_customer }}</option>
+                                <option value="{{ $item->id_penjualan }}">ID: {{ $item->id_penjualan }}, Customer: {{ $item->customer->nama_customer }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -88,10 +88,10 @@
 
                     <div class="form-group">
                         <label for="">Penjualan</label>
-                        <select name="id_barang_keluar" class="form-control" id="">
+                        <select name="id_penjualan" class="form-control" id="">
                             <option value="">Pilih penjualan</option>
                             @foreach ($barang as $item)
-                                <option value="{{ $item->id_barang_keluar }}">ID: {{ $item->id_barang_keluar }}, Customer: {{ $item->customer->nama_customer }}</option>
+                                <option value="{{ $item->id_penjualan }}">ID: {{ $item->id_penjualan }}, Customer: {{ $item->customer->nama_customer }}</option>
                             @endforeach    
                         </select>
                     </div>
@@ -178,7 +178,7 @@ $(document).ready(function() {
             modalEdit_id_barang.val(msg.data.id_barang);
 
             modalEdit_tanggal.attr("disabled", false);
-            modalEdit_tanggal.val(msg.data.tanggal_barang_keluar);
+            modalEdit_tanggal.val(msg.data.tanggal_penjualan);
         }).fail(function(err) {
             alert("Terjadi kesalahan pada server");
             modalEdit_id_barang.attr("disabled", false);

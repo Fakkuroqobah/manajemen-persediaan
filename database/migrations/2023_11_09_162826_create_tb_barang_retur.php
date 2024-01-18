@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('tb_barang_retur', function (Blueprint $table) {
             $table->id('id_barang_retur');
             $table->date('tanggal_barang_retur');
-            $table->unsignedBigInteger('id_barang_keluar');
+            $table->unsignedBigInteger('id_penjualan');
             $table->timestamps();
         });
 
         Schema::table('tb_barang_retur', function (Blueprint $table) {
-            $table->foreign('id_barang_keluar')->references('id_barang_keluar')->on('tb_barang_keluar')
+            $table->foreign('id_penjualan')->references('id_penjualan')->on('tb_penjualan')
                   ->cascadeOnDelete()
                   ->cascadeOnUpdate();
         });

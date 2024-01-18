@@ -186,7 +186,7 @@ $(document).ready(function() {
             { data: 'customer.nama_customer', name: 'nama_customer' },
             { data: 'kasir.nama_kasir', name: 'nama_kasir' },
             { data: 'barang', name: 'barang' },
-            { data: 'tanggal_barang_keluar', name: 'tanggal_barang_keluar' },
+            { data: 'tanggal_penjualan', name: 'tanggal_penjualan' },
             { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
         ],
         columnDefs: [

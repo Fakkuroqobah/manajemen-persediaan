@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tb_barang_keluar_detail', function (Blueprint $table) {
-            $table->id('id_barang_keluar_detail');
+        Schema::create('tb_penjualan_detail', function (Blueprint $table) {
+            $table->id('id_penjualan_detail');
             $table->unsignedBigInteger('id_barang');
-            $table->unsignedBigInteger('id_barang_keluar');
+            $table->unsignedBigInteger('id_penjualan');
             $table->integer('jumlah_barang_keluar');
             $table->timestamps();
         });
 
-        Schema::table('tb_barang_keluar_detail', function (Blueprint $table) {
+        Schema::table('tb_penjualan_detail', function (Blueprint $table) {
             $table->foreign('id_barang')->references('id_barang')->on('tb_barang')
                   ->cascadeOnDelete()
                   ->cascadeOnUpdate();
-            $table->foreign('id_barang_keluar')->references('id_barang_keluar')->on('tb_barang_keluar')
+            $table->foreign('id_penjualan')->references('id_penjualan')->on('tb_penjualan')
                   ->cascadeOnDelete()
                   ->cascadeOnUpdate();
         });
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tb_barang_keluar_detail');
+        Schema::dropIfExists('tb_penjualan_detail');
     }
 };

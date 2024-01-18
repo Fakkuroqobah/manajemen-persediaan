@@ -7,7 +7,7 @@
     <meta name="description" content="Inventory">
     <meta name="author" content="">
 
-    <title>Inventory | Login</title>
+    <title>Persediaan Barang | Login</title>
 
 	{{-- Favicon --}}
 	<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/favicon/apple-touch-icon.png') }}">

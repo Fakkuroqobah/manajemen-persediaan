@@ -8,7 +8,7 @@
     <meta name="description" content="Inventory">
     <meta name="author" content="">
 
-    <title>Persediaan | @yield('title')</title>
+    <title>Persediaan Barang | @yield('title')</title>
 
     {{-- Custom fonts for this template --}}
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">

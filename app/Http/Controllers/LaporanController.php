@@ -33,7 +33,7 @@ class LaporanController extends Controller
             $pdf = Pdf::loadView('pdf', compact('data', 'tipe', 'mulai','selesai'));
             return $pdf->download('barang masuk.pdf');
         }else if ($request->tipe == 'keluar') {
-            $data = BarangKeluar::with(['barang', 'customer'])->whereBetween('tanggal_barang_keluar', [$mulai, $selesai])->latest()->get();
+            $data = BarangKeluar::with(['barang.barang', 'customer'])->whereBetween('tanggal_penjualan', [$mulai, $selesai])->latest()->get();
             $pdf = Pdf::loadView('pdf', compact('data', 'tipe', 'mulai','selesai'));
             return $pdf->download('barang keluar.pdf');
         }else{

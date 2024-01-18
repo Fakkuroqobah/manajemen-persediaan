@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class BarangKeluar extends Model
 {
-    protected $table = 'tb_barang_keluar';
-    protected $primaryKey = 'id_barang_keluar';
-    protected $guarded = ['id_barang_keluar'];
+    protected $table = 'tb_penjualan';
+    protected $primaryKey = 'id_penjualan';
+    protected $guarded = ['id_penjualan'];
     public $timestamps = true;
 
     public function barang()
     {
-        return $this->hasMany('App\Models\BarangKeluarDetail', 'id_barang_keluar', 'id_barang_keluar');
+        return $this->hasMany('App\Models\BarangKeluarDetail', 'id_penjualan', 'id_penjualan');
     }
 
     public function customer()

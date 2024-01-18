@@ -95,7 +95,7 @@
             <tr>
                 <td>Tanggal</td>
                 <td>:</td>
-                <td>{{ date('d-m-Y', strtotime($data->tanggal_barang_keluar)) }}</td>
+                <td>{{ date('d-m-Y', strtotime($data->tanggal_penjualan)) }}</td>
             </tr>
             <tr>
                 <td>Customer</td>

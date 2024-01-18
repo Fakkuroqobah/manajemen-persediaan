@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class BarangKeluarDetail extends Model
 {
-    protected $table = 'tb_barang_keluar_detail';
-    protected $primaryKey = 'id_barang_keluar_detail';
-    protected $guarded = ['id_barang_keluar_detail'];
+    protected $table = 'tb_penjualan_detail';
+    protected $primaryKey = 'id_penjualan_detail';
+    protected $guarded = ['id_penjualan_detail'];
     public $timestamps = true;
 
     public function barang()
@@ -18,6 +18,6 @@ class BarangKeluarDetail extends Model
 
     public function barangKeluar()
     {
-        return $this->belongsTo('App\Models\BarangKeluar', 'id_barang_keluar', 'id_barang_keluar');
+        return $this->belongsTo('App\Models\BarangKeluar', 'id_penjualan', 'id_penjualan');
     }
 }

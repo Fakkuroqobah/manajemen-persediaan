@@ -62,13 +62,13 @@ class ReturController extends Controller
     {
         $request->validate([
             'tanggal' => 'required',
-            'id_barang_keluar' => 'required'
+            'id_penjualan' => 'required'
         ]);
 
         try {
             $data = Retur::create([
                 'tanggal_barang_retur' => $request->tanggal,
-                'id_barang_keluar' => $request->id_barang_keluar
+                'id_penjualan' => $request->id_penjualan
             ]);
 
             return $this->res(201, 'Berhasil', $data);
@@ -88,14 +88,14 @@ class ReturController extends Controller
     {
         $request->validate([
             'tanggal' => 'required',
-            'id_barang_keluar' => 'required'
+            'id_penjualan' => 'required'
         ]);
 
         $data = Retur::findOrFail($id);
         try {
             $data->update([
                 'tanggal_barang_retur' => $request->tanggal,
-                'id_barang_keluar' => $request->id_barang_keluar
+                'id_penjualan' => $request->id_penjualan
             ]);
 
             return $this->res(200, 'Berhasil', $data);

@@ -22,24 +22,26 @@ Route::get('/', [LoginController::class, 'viewLogin'])->name('home');
 Route::post('/', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/cashier', [LoginKasirController::class, 'viewLogin'])->name('cashier');
-Route::post('/cashier', [LoginKasirController::class, 'login'])->name('cashier_login');
-Route::get('/cashier/logout', [LoginKasirController::class, 'logout'])->name('cahsier_logout');
-Route::get('/cashier/barang', [KasirBarangController::class, 'index'])->name('cashier_barang');
-Route::get('/cashier/customer', [KasirCustomerController::class, 'index'])->name('cashier_customer');
-Route::get('/cashier/penjualan', [KasirBarangKeluarController::class, 'index'])->name('cashier_jual');
-Route::get('/cashier/retur', [KasirReturController::class, 'index'])->name('cashier_retur');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/cashier', [LoginKasirController::class, 'viewLogin'])->name('cashier');
+    Route::post('/cashier', [LoginKasirController::class, 'login'])->name('cashier_login');
+    Route::get('/cashier/logout', [LoginKasirController::class, 'logout'])->name('cahsier_logout');
+    Route::get('/cashier/barang', [KasirBarangController::class, 'index'])->name('cashier_barang');
+    Route::get('/cashier/customer', [KasirCustomerController::class, 'index'])->name('cashier_customer');
+    Route::get('/cashier/penjualan', [KasirBarangKeluarController::class, 'index'])->name('cashier_jual');
+    Route::get('/cashier/retur', [KasirReturController::class, 'index'])->name('cashier_retur');
 
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('download', [LaporanController::class, 'download'])->name('download');
-Route::get('/penjualan/nota/{id}/{jumlah}', [BarangKeluarController::class, 'nota'])->name('nota');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('download', [LaporanController::class, 'download'])->name('download');
+    Route::get('/penjualan/nota/{id}/{jumlah}', [BarangKeluarController::class, 'nota'])->name('nota');
 
-Route::resource('barang', BarangController::class);
-Route::resource('customer', CustomerController::class);
-Route::resource('supplier', SupplierController::class);
-Route::resource('barang-masuk', BarangMasukController::class);
-Route::resource('penjualan', BarangKeluarController::class);
-Route::resource('retur', ReturController::class);
-Route::resource('laporan', LaporanController::class);
-Route::resource('admin', AdminController::class);
-Route::resource('kasir', KasirController::class);
+    Route::resource('barang', BarangController::class);
+    Route::resource('customer', CustomerController::class);
+    Route::resource('supplier', SupplierController::class);
+    Route::resource('barang-masuk', BarangMasukController::class);
+    Route::resource('penjualan', BarangKeluarController::class);
+    Route::resource('retur', ReturController::class);
+    Route::resource('laporan', LaporanController::class);
+    Route::resource('admin', AdminController::class);
+    Route::resource('kasir', KasirController::class);
+});
