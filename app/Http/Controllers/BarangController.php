@@ -26,6 +26,9 @@ class BarangController extends Controller
                     return '<a href="#" class="btn btn-sm mr-2 btn-warning edit" data-id="'. $data->id_barang .'" data-toggle="modal" data-target="#modal-edit" data-type="edit">Edit</a>' .
                         '<a href="#" class="btn btn-sm btn-danger mt-2 mt-lg-0 mb-2 mb-lg-0 delete" data-id="'. $data->id_barang .'">Delete</a>';
                 })
+                ->addColumn('harga_barang', function($data) {
+                    return 'Rp.' . number_format($data->harga_barang);
+                })
                 ->rawColumns(['gambar_barang', 'aksi'])
                 ->make(true);
         }

@@ -9,6 +9,7 @@
 @push('styles')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @section('content')
@@ -70,8 +71,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Barang</label>
-                        <select name="id_barang" class="form-control" id="">
-                            <option value="">Pilih barang</option>
+                        <select name="id_barang" class="form-control select-barang">
                             @foreach ($barang as $item)
                                 <option value="{{ $item->id_barang }}">{{ $item->nama_barang }}</option>
                             @endforeach    
@@ -80,10 +80,6 @@
                     <div class="form-group">
                         <label for="">Jumlah barang</label>
                         <input type="number" name="jumlah" class="form-control" placeholder="Keluaran jumlah barang" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Tanggal jual</label>
-                        <input type="date" name="tanggal" class="form-control" placeholder="Keluaran tanggal jual" autocomplete="off">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -111,8 +107,7 @@
 
                     <div class="form-group">
                         <label for="">Barang</label>
-                        <select name="id_barang" class="form-control" id="">
-                            <option value="">Pilih barang</option>
+                        <select name="id_barang" class="form-control select-barang">
                             @foreach ($barang as $item)
                                 <option value="{{ $item->id_barang }}">{{ $item->nama_barang }}</option>
                             @endforeach    
@@ -171,6 +166,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
 $(document).ready(function() {
@@ -200,6 +197,8 @@ $(document).ready(function() {
             }
         ]
     });
+
+    $('.select-barang').select2({ width: '100%' });
     
 
     $('#table').on('click', '.edit', function(e) {

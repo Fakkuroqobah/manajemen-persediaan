@@ -59,18 +59,9 @@
                             @endforeach    
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group d-none">
                         <label for="">Kasir</label>
-                        <select name="id_kasir" class="form-control" id="" readonly>
-                            <option value="">Pilih kasir</option>
-                            @foreach ($kasir as $item)
-                                <option value="{{ $item->id_kasir }}"
-                                    @if ($item->id_kasir == Auth::guard('kasir')->user()->id_kasir)
-                                        selected
-                                    @endif    
-                                >{{ $item->nama_kasir }}</option>
-                            @endforeach    
-                        </select>
+                        <input type="hidden" name="id_kasir" value="{{ Auth::guard('kasir')->user()->id_kasir }}">
                     </div>
                     <div class="form-group">
                         <label for="">Barang</label>
@@ -85,7 +76,7 @@
                         <label for="">Jumlah barang</label>
                         <input type="number" name="jumlah" class="form-control" placeholder="Keluaran jumlah barang" autocomplete="off">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group d-none">
                         <label for="">Tanggal jual</label>
                         <input type="date" name="tanggal" class="form-control" placeholder="Keluaran tanggal jual" autocomplete="off">
                     </div>
@@ -180,7 +171,7 @@
 $(document).ready(function() {
     var table = $('#table').DataTable({
         processing: true,
-        ajax: '{{ route("penjualan.index") }}',
+        ajax: '{{ route("cashier_jual") }}',
         columns: [
             { data: 'DT_RowIndex', name:'DT_RowIndex', searchable: false },
             { data: 'customer.nama_customer', name: 'nama_customer' },

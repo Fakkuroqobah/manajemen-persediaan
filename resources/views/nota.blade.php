@@ -95,7 +95,7 @@
             <tr>
                 <td>Tanggal</td>
                 <td>:</td>
-                <td>{{ date('d-m-Y', strtotime($data->tanggal_penjualan)) }}</td>
+                <td>{{ date('d-m-Y H:i', strtotime($data->tanggal_penjualan)) }}</td>
             </tr>
             <tr>
                 <td>Customer</td>
@@ -129,8 +129,8 @@
                         <td>{{ $item->id_barang }}</td>
                         <td>{{ $item->barang->nama_barang }}</td>
                         <td>{{ $item->jumlah_barang_keluar }}</td>
-                        <td>{{ $item->barang->harga_barang }}</td>
-                        <td>{{ $item->jumlah_barang_keluar * $item->barang->harga_barang }}</td>
+                        <td>Rp.{{ $item->barang->harga_barang }}</td>
+                        <td>Rp.{{ $item->jumlah_barang_keluar * $item->barang->harga_barang }}</td>
                     </tr>
                     @php
                         $total += $item->jumlah_barang_keluar * $item->barang->harga_barang;
@@ -139,15 +139,15 @@
                 
                 <tr>
                     <td colspan="5"><b>Total harga</b></td>
-                    <td>{{ number_format($total) }}</td>
+                    <td>Rp.{{ number_format($total) }}</td>
                 </tr>
                 <tr>
                     <td colspan="5"><b>Total Bayar</b></td>
-                    <td>{{ number_format($jumlah) }}</td>
+                    <td>Rp.{{ number_format($jumlah) }}</td>
                 </tr>
                 <tr>
                     <td colspan="5"><b>Kembalian</b></td>
-                    <td>{{ number_format($jumlah - $total) }}</td>
+                    <td>Rp.{{ number_format($jumlah - $total) }}</td>
                 </tr>
             </tbody>
         </table>

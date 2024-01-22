@@ -42,18 +42,21 @@ class BarangKeluarController extends Controller
                         $view .= '<tr>
                             <td>'. $item->barang->nama_barang .'</td>
                             <td>'. $item->jumlah_barang_keluar .'</td>
-                            <td>'. $item->barang->harga_barang .'</td>
-                            <td>'. $item->jumlah_barang_keluar * $item->barang->harga_barang .'</td>
+                            <td>Rp.'. $item->barang->harga_barang .'</td>
+                            <td>Rp.'. $item->jumlah_barang_keluar * $item->barang->harga_barang .'</td>
                         </tr>';
                     }
 
                     $view .= '<tr>
                         <td colspan="3">Toal harga</td>
-                        <td>'. $total .'</td>
+                        <td>Rp.'. $total .'</td>
                     </tr>';
 
                     $view .= '</table>';
                     return $view;
+                })
+                ->addColumn('tanggal_penjualan', function($data) {
+                    return date('d-m-Y H:i', strtotime($data->tanggal_penjualan));
                 })
                 ->addColumn('aksi', function($data) {
                     return '<a href="#" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#modal-edit" data-id="'. $data->id_penjualan .'">Tambah</a>
@@ -72,7 +75,6 @@ class BarangKeluarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tanggal' => 'required',
             'jumlah' => 'required',
             'id_barang' => 'required',
             'id_customer' => 'required',
@@ -87,7 +89,7 @@ class BarangKeluarController extends Controller
         DB::beginTransaction();
         try {
             $data = BarangKeluar::create([
-                'tanggal_penjualan' => $request->tanggal,
+                'tanggal_penjualan' => now(),
                 'id_customer' => $request->id_customer,
                 'id_kasir' => $request->id_kasir
             ]);
