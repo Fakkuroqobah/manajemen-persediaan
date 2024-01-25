@@ -25,6 +25,8 @@
                         <th>Nama customer</th>
                         <th>List barang</th>
                         <th>Tanggal retur</th>
+                        <th>Deskripsi</th>
+                        <th>Jumlah</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -60,7 +62,15 @@
                     </div>
                     <div class="form-group">
                         <label for="">Tanggal retur</label>
-                        <input type="date" name="tanggal" class="form-control" placeholder="Keluaran tannggal barang keluar" autocomplete="off">
+                        <input type="date" name="tanggal" class="form-control" placeholder="Keluaran tanggal barang keluar" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Deskripsi</label>
+                        <textarea name="deskripsi" id="" cols="30" rows="3" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Jumlah</label>
+                        <input type="number" name="jumlah" class="form-control" placeholder="Jumlah" autocomplete="off">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -131,19 +141,21 @@ $(document).ready(function() {
             { data: 'penjualan.customer.nama_customer', name: 'nama_customer' },
             { data: 'barang', name: 'barang' },
             { data: 'tanggal_barang_retur', name: 'tanggal_barang_retur' },
+            { data: 'deskripsi', name: 'deskripsi' },
+            { data: 'jumlah', name: 'jumlah' },
             { data: 'aksi', name: 'aksi', orderable: false, searchable: false },
         ],
         columnDefs: [
-            { "className": "text-center", "targets": [0, 4] },
+            { "className": "text-center", "targets": [0, 6] },
             { "width": "5%", "targets": 0 },
-            { "width": "20%", "targets": 4 },
+            { "width": "20%", "targets": 6 },
         ],
         dom: 'Bfrtip',
         buttons: [
             {
                 extend: 'pdf',
                 exportOptions: {
-                    columns: [0,1,2]
+                    columns: [0,1,2,3,4,5]
                 }
             }
         ]

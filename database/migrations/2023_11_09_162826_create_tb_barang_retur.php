@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('tb_barang_retur', function (Blueprint $table) {
             $table->id('id_barang_retur');
             $table->date('tanggal_barang_retur');
+            $table->text('deskripsi');
+            $table->int('jumlah');
             $table->unsignedBigInteger('id_penjualan');
             $table->timestamps();
         });

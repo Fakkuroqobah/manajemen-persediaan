@@ -146,6 +146,8 @@
                         <th>No</th>
                         <th>Nama customer</th>
                         <th>List barang</th>
+                        <th>Deskripsi</th>
+                        <th>Jumlah</th>
                         <th>Tanggal retur</th>
                     @endif
                 </tr>
@@ -165,7 +167,7 @@
                             <td>{!! '<img src="'. public_path("storage/$src") .'" style="width: 120px">' !!}</td>
                             <td>{{ $item->nama_barang }}</td>
                             <td>{{ $item->jenis_barang }}</td>
-                            <td>{{ $item->harga_barang }}</td>
+                            <td>Rp.{{ number_format($item->harga_barang) }}</td>
                             <td>{{ $item->stok_barang }}</td>
                         </tr>
                         @php
@@ -208,13 +210,13 @@
                                         <tr>
                                             <td>{{ $val->barang->nama_barang }}</td>
                                             <td>{{ $val->jumlah_barang_keluar }}</td>
-                                            <td>{{ $val->barang->harga_barang }}</td>
-                                            <td>{{ $val->jumlah_barang_keluar * $val->barang->harga_barang }}</td>
+                                            <td>Rp.{{ number_format($val->barang->harga_barang) }}</td>
+                                            <td>Rp.{{ number_format($val->jumlah_barang_keluar * $val->barang->harga_barang) }}</td>
                                         </tr>
                                     @endforeach
                                     <tr>
                                         <td colspan="3">Total:</td>
-                                        <td>{{ $total2 }}</td>
+                                        <td>Rp.{{ number_format($total2) }}</td>
                                     </tr>
                                 </table>
                             </td>
@@ -243,16 +245,18 @@
                                         <tr>
                                             <td>{{ $val->barang->nama_barang }}</td>
                                             <td>{{ $val->jumlah_barang_keluar }}</td>
-                                            <td>{{ $val->barang->harga_barang }}</td>
-                                            <td>{{ $val->jumlah_barang_keluar * $val->barang->harga_barang }}</td>
+                                            <td>Rp.{{ number_format($val->barang->harga_barang) }}</td>
+                                            <td>Rp.{{ number_format($val->jumlah_barang_keluar * $val->barang->harga_barang) }}</td>
                                         </tr>
                                     @endforeach
                                     <tr>
                                         <td colspan="3">Total:</td>
-                                        <td>{{ $total2 }}</td>
+                                        <td>Rp.{{ number_format($total2) }}</td>
                                     </tr>
                                 </table>
                             </td>
+                            <td>{{ $item->deskripsi }}</td>
+                            <td>{{ $item->jumlah }}</td>
                             <td>{{ $item->tanggal_barang_retur }}</td>
                         </tr>
                     @endif
@@ -266,9 +270,9 @@
                     @elseif ($tipe == 'keluar')
                         <td colspan="4"><b>Total penjualan</b></td>
                     @else
-                        <td colspan="3"><b>Total retur</b></td>
+                        <td colspan="5"><b>Total retur</b></td>
                     @endif
-                    <td>{{ number_format($total) }}</td>
+                    <td>Rp.{{ number_format($total) }}</td>
                 </tr>
             </tbody>
         </table>

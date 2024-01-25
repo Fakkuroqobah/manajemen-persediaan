@@ -62,13 +62,17 @@ class ReturController extends Controller
     {
         $request->validate([
             'tanggal' => 'required',
-            'id_penjualan' => 'required'
+            'id_penjualan' => 'required',
+            'deskripsi' => 'required',
+            'jumlah' => 'required',
         ]);
 
         try {
             $data = Retur::create([
                 'tanggal_barang_retur' => $request->tanggal,
-                'id_penjualan' => $request->id_penjualan
+                'id_penjualan' => $request->id_penjualan,
+                'deskripsi' => $request->deskripsi,
+                'jumlah' => $request->jumlah,
             ]);
 
             return $this->res(201, 'Berhasil', $data);
