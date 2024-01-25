@@ -9,6 +9,7 @@
 @push('styles')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @section('content')
@@ -65,7 +66,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Barang</label>
-                        <select name="id_barang" class="form-control" id="">
+                        <select name="id_barang" class="form-control select-barang" id="">
                             <option value="">Pilih barang</option>
                             @foreach ($barang as $item)
                                 <option value="{{ $item->id_barang }}">{{ $item->nama_barang }}</option>
@@ -106,7 +107,7 @@
 
                     <div class="form-group">
                         <label for="">Barang</label>
-                        <select name="id_barang" class="form-control" id="">
+                        <select name="id_barang" class="form-control select-barang" id="">
                             <option value="">Pilih barang</option>
                             @foreach ($barang as $item)
                                 <option value="{{ $item->id_barang }}">{{ $item->nama_barang }}</option>
@@ -166,12 +167,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
 $(document).ready(function() {
     var table = $('#table').DataTable({
         processing: true,
-        ajax: '{{ route("cashier_jual") }}',
+        ajax: '{{ route("jual.index") }}',
         columns: [
             { data: 'DT_RowIndex', name:'DT_RowIndex', searchable: false },
             { data: 'customer.nama_customer', name: 'nama_customer' },
@@ -196,6 +199,7 @@ $(document).ready(function() {
         ]
     });
     
+    $('.select-barang').select2({ width: '100%' });
 
     $('#table').on('click', '.edit', function(e) {
         e.preventDefault()
@@ -223,7 +227,7 @@ $(document).ready(function() {
         var opt = {
             method: 'POST',
             aksi: 'tambah',
-            url: '{{ route("penjualan.store") }}',
+            url: '{{ route("jual.store") }}',
             table: table,
             element: tambah
         };
@@ -251,7 +255,7 @@ $(document).ready(function() {
         form.append('aksi', 'edit');
         form.append('_method', 'PATCH');
 
-        var url = "{{ route('penjualan.update', ':id') }}";
+        var url = "{{ route('jual.update', ':id') }}";
         url = url.replace(':id', $(this).attr('data-id'));
 
         var opt = {
@@ -275,7 +279,7 @@ $(document).ready(function() {
     $('#cetak').on('click', function(e) {
         e.preventDefault();
 
-        var url = "{{ route('nota', ['id' => ':id', 'jumlah' => ':jumlah']) }}";
+        var url = "{{ route('cashier_nota', ['id' => ':id', 'jumlah' => ':jumlah']) }}";
         url = url.replace(':id', $(this).attr('data-id'));
         url = url.replace(':jumlah', $('#jumlah_bayar').val());
 
@@ -283,7 +287,7 @@ $(document).ready(function() {
     });
 
     $('#table').on('click', '.delete', function(event) {
-        var url = "{{ route('penjualan.destroy', ':id') }}";
+        var url = "{{ route('jual.destroy', ':id') }}";
         url = url.replace(':id', $(this).attr('data-id'));
 
         var opt = {

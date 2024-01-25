@@ -80,6 +80,13 @@
 
         <hr class="sidebar-divider my-0">
         <li class="nav-item {{ Request::segment(1) === 'barang' ? 'active' : null }}">
+            <a class="nav-link" href="{{ route('cashier_dashboard') }}">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider my-0">
+        <li class="nav-item {{ Request::segment(1) === 'barang' ? 'active' : null }}">
             <a class="nav-link" href="{{ route('cashier_barang') }}">
                 <i class="fas fa-clipboard-list"></i>
                 <span>Barang</span>
@@ -94,7 +101,7 @@
         </li>
         <hr class="sidebar-divider my-0">
         <li class="nav-item {{ Request::segment(1) === 'penjualan' ? 'active' : null }}">
-            <a class="nav-link" href="{{ route('cashier_jual') }}">
+            <a class="nav-link" href="{{ route('jual.index') }}">
                 <i class="fas fa-clipboard-list"></i>
                 <span>Penjualan</span>
             </a>

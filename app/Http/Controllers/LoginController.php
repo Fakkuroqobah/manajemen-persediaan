@@ -38,7 +38,7 @@ class LoginController extends Controller
                 }
         
                 if(Auth::guard('kasir')->check()) {
-                    return redirect()->route('cashier_barang');
+                    return redirect()->route('cashier_dashboard');
                 }else{
                     return redirect()->back()->with('danger', 'Username atau password salah');
                 }

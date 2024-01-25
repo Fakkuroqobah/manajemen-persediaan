@@ -17,6 +17,7 @@ use App\Http\Controllers\ReturController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\KasirController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\KasirDashboardController;
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/', [LoginController::class, 'viewLogin'])->name('home');
@@ -33,12 +34,14 @@ Route::resource('barang', BarangController::class);
 Route::resource('customer', CustomerController::class);
 Route::resource('retur', ReturController::class);
 
-Route::middleware(['auth:kasir'])->group(function () {
+// Route::middleware(['auth:kasir'])->group(function () {
+    Route::get('/cashier/dashboard', [KasirDashboardController::class, 'index'])->name('cashier_dashboard');
     Route::get('/cashier/barang', [KasirBarangController::class, 'index'])->name('cashier_barang');
     Route::get('/cashier/customer', [KasirCustomerController::class, 'index'])->name('cashier_customer');
-    Route::get('/cashier/penjualan', [KasirBarangKeluarController::class, 'index'])->name('cashier_jual');
+    Route::resource('/cashier/jual', KasirBarangKeluarController::class);
     Route::get('/cashier/retur', [KasirReturController::class, 'index'])->name('cashier_retur');
-});
+    Route::get('cashier/penjualan/nota/{id}/{jumlah}', [BarangKeluarController::class, 'nota'])->name('cashier_nota');
+// });
 
 Route::middleware(['auth:web'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
