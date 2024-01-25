@@ -145,7 +145,7 @@
                     @else
                         <th>No</th>
                         <th>Nama customer</th>
-                        <th>Nama barang</th>
+                        <th>List barang</th>
                         <th>Tanggal retur</th>
                     @endif
                 </tr>
@@ -199,7 +199,8 @@
                                         <th>Harga satuan</th>
                                         <th>Total</th>
                                     </tr>
-                                    @foreach ($item->penjualan->barang as $val)
+                                    {{-- {{dd($item)}} --}}
+                                    @foreach ($item->barang as $val)
                                         @php
                                             $total += $val->jumlah_barang_keluar * $val->barang->harga_barang;
                                             $total2 += $val->jumlah_barang_keluar * $val->barang->harga_barang;
@@ -265,7 +266,7 @@
                     @elseif ($tipe == 'keluar')
                         <td colspan="4"><b>Total penjualan</b></td>
                     @else
-                        <td colspan="4"><b>Total retur</b></td>
+                        <td colspan="3"><b>Total retur</b></td>
                     @endif
                     <td>{{ number_format($total) }}</td>
                 </tr>
