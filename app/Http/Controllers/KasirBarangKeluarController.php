@@ -49,8 +49,14 @@ class KasirBarangKeluarController extends Controller
 
                     $view .= '<tr>
                         <td colspan="3">Toal harga</td>
-                        <td>Rp.'. $total .'</td>
+                        <td class="total_harga">Rp.'. $total .'</td>
                     </tr>';
+
+                    if($data->nota == 1) {
+                        $view .= '<tr class="bg-success text-white">
+                            <td colspan="4" class="text-center">LUNAS</td>
+                        </tr>';
+                    }
 
                     $view .= '</table>';
                     return $view;
@@ -59,9 +65,17 @@ class KasirBarangKeluarController extends Controller
                     return date('d-m-Y H:i', strtotime($data->tanggal_penjualan));
                 })
                 ->addColumn('aksi', function($data) {
+                    $nota = '';
+                    if($data->nota == 0) {
+                        $nota .= '<span class="mx-1"></span>
+                            <a href="#" class="btn btn-sm btn-success mt-2 mt-lg-0 mb-2 mb-lg-0 nota" data-toggle="modal" data-target="#modal-nota" data-total="0" data-id="'. $data->id_penjualan .'">Nota</a>';
+                    }else{
+                        $nota .= '<span class="mx-1"></span>
+                            <a href="'. route('cashier_nota', $data->id_penjualan) .'" class="btn btn-sm btn-success mt-2 mt-lg-0 mb-2 mb-lg-0">Nota</a>';
+                    }
+
                     return '<a href="#" class="btn btn-sm btn-primary edit" data-toggle="modal" data-target="#modal-edit" data-id="'. $data->id_penjualan .'">Tambah</a>
-                        <span class="mx-1"></span>
-                        <a href="#" class="btn btn-sm btn-success mt-2 mt-lg-0 mb-2 mb-lg-0 nota" data-toggle="modal" data-target="#modal-nota" data-id="'. $data->id_penjualan .'">Nota</a>
+                        '. $nota .'    
                         <span class="mx-1"></span>
                         <a href="#" class="btn btn-sm btn-danger mt-2 mt-lg-0 mb-2 mb-lg-0 delete" data-id="'. $data->id_penjualan .'">Delete</a>';
                 })
@@ -113,12 +127,22 @@ class KasirBarangKeluarController extends Controller
         }
     }
 
-    public function nota($id, $jumlah)
+    public function nota($id, $jumlah = null, $uang = null)
     {
         $data = BarangKeluar::with(['barang.barang', 'customer'])->findOrFail($id);
-        $data->update([
-            'jumlah_bayar' => $jumlah
-        ]);
+        
+        if($data->nota == 0) {
+            if($uang > $jumlah) {
+                return redirect()->back()->with('danger', 'Uang pembayaran masih kurang');
+            }
+    
+            $data->update([
+                'jumlah_bayar' => $jumlah,
+                'nota' => 1,
+            ]);
+        }else{
+            $jumlah = $data->jumlah_bayar;
+        }
 
         $pdf = Pdf::loadView('nota', compact('data', 'jumlah'));
         return $pdf->download('nota.pdf');

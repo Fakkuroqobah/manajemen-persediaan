@@ -40,13 +40,13 @@ Route::resource('retur', ReturController::class);
     Route::get('/cashier/customer', [KasirCustomerController::class, 'index'])->name('cashier_customer');
     Route::resource('/cashier/jual', KasirBarangKeluarController::class);
     Route::get('/cashier/retur', [KasirReturController::class, 'index'])->name('cashier_retur');
-    Route::get('cashier/penjualan/nota/{id}/{jumlah}', [BarangKeluarController::class, 'nota'])->name('cashier_nota');
+    Route::get('cashier/penjualan/nota/{id}/{jumlah?}/{uang?}', [BarangKeluarController::class, 'nota'])->name('cashier_nota');
 // });
 
 Route::middleware(['auth:web'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('download', [LaporanController::class, 'download'])->name('download');
-    Route::get('/penjualan/nota/{id}/{jumlah}', [BarangKeluarController::class, 'nota'])->name('nota');
+    Route::get('/penjualan/nota/{id}/{jumlah?}/{uang?}', [BarangKeluarController::class, 'nota'])->name('nota');
 
     Route::resource('supplier', SupplierController::class);
     Route::resource('barang-masuk', BarangMasukController::class);

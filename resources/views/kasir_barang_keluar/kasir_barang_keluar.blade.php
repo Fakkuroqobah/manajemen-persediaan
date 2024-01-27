@@ -18,6 +18,14 @@
 
 <div class="card mb-4 shadow-sm">
     <div class="card-body">
+        @if (session('danger'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ Session::get('danger') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         <div class="table-responsive">
             <table class="table table-bordered" id="table" style="width: 100%">
                 <thead>
@@ -193,7 +201,7 @@ $(document).ready(function() {
             {
                 extend: 'pdf',
                 exportOptions: {
-                    columns: [0,1,2,3,4,5]
+                    columns: [0,1,2,3,4]
                 }
             }
         ]
@@ -208,7 +216,9 @@ $(document).ready(function() {
 
     $('#table').on('click', '.nota', function(e) {
         e.preventDefault()
+        var a = $(this).parent().parent().find('.total_harga').text().replace(/Rp\./g, '');
         $('#modal-nota button[name="submit"]').attr('data-id', $(this).attr('data-id'));
+        $('#modal-nota button[name="submit"]').attr('data-total', a);
     });
 
     var tambah = $("#modal-tambah button[name='submit']");
@@ -279,11 +289,15 @@ $(document).ready(function() {
     $('#cetak').on('click', function(e) {
         e.preventDefault();
 
-        var url = "{{ route('cashier_nota', ['id' => ':id', 'jumlah' => ':jumlah']) }}";
+        var url = "{{ route('cashier_nota', ['id' => ':id', 'jumlah' => ':jumlah', 'uang' => ':uang']) }}";
+        url = url.replace(':uang', $(this).attr('data-total'));
         url = url.replace(':id', $(this).attr('data-id'));
         url = url.replace(':jumlah', $('#jumlah_bayar').val());
 
         window.location.href = url;
+        setTimeout(function() {
+            window.location.reload();
+        }, 1000);
     });
 
     $('#table').on('click', '.delete', function(event) {

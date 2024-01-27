@@ -265,14 +265,17 @@
                 <tr>
                     @if ($tipe == 'barang')
                         <td colspan="5"><b>Total stok barang</b></td>
+                        <td>{{ $total }}</td>
                     @elseif ($tipe == 'masuk')
                         <td colspan="5"><b>Total barang masuk</b></td>
+                        <td>{{ $total }}</td>
                     @elseif ($tipe == 'keluar')
                         <td colspan="4"><b>Total penjualan</b></td>
+                        <td>Rp.{{ number_format($total) }}</td>
                     @else
                         <td colspan="5"><b>Total retur</b></td>
+                        <td>Rp.{{ number_format($total) }}</td>
                     @endif
-                    <td>Rp.{{ number_format($total) }}</td>
                 </tr>
             </tbody>
         </table>

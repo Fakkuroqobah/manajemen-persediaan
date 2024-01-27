@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_customer');
             $table->unsignedBigInteger('id_kasir');
             $table->integer('jumlah_bayar')->nullable();
+            $table->boolean('nota')->default(0);
             $table->timestamps();
         });
 
