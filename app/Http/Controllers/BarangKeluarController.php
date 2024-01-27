@@ -86,6 +86,12 @@ class BarangKeluarController extends Controller
         return view('barang_keluar.barang_keluar', compact('barang', 'customer', 'kasir'));
     }
 
+    public function find($id)
+    {
+        $data = BarangKeluarDetail::with(['barang'])->where('id_penjualan', $id)->get();
+        return $this->res(200, 'Berhasil', $data);
+    }
+
     public function store(Request $request)
     {
         $request->validate([

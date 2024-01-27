@@ -9,6 +9,22 @@
 @push('styles')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+.modal-content {
+    position: relative;
+}
+.modal-content .overlay {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000a6;
+    z-index: 99;
+}
+</style>
 @endpush
 
 @section('content')
@@ -23,7 +39,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama customer</th>
-                        <th>List barang</th>
+                        <th>Barang</th>
                         <th>Tanggal retur</th>
                         <th>Deskripsi</th>
                         <th>Jumlah</th>
@@ -39,6 +55,12 @@
 <div class="modal fade" id="modal-tambah" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+            <div class="loading overlay d-none">
+                <div class="">
+                    <h3 class="text-white text-center mt-5">Loading...</h3>
+                </div>
+            </div>
+            
             <div class="modal-header">
                 <h5 class="modal-title">Tambah</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -53,11 +75,17 @@
 
                     <div class="form-group">
                         <label for="">Penjualan</label>
-                        <select name="id_penjualan" class="form-control" id="">
+                        <select name="id_penjualan" class="form-control select-barang" id="id_penjualan">
                             <option value="">Pilih penjualan</option>
                             @foreach ($barang as $item)
                                 <option value="{{ $item->id_penjualan }}">ID: {{ $item->id_penjualan }}, Customer: {{ $item->customer->nama_customer }}, Total Barang: {{ $item->barang->count() }}</option>
                             @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Barang</label>
+                        <select name="id_penjualan_detail" class="form-control select-barang" id="id_penjualan_detail">
+                            <option value="">Pilih barang yang di retur</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -66,11 +94,11 @@
                     </div>
                     <div class="form-group">
                         <label for="">Deskripsi</label>
-                        <textarea name="deskripsi" id="" cols="30" rows="3" class="form-control"></textarea>
+                        <textarea name="deskripsi" id="" cols="30" rows="3" class="form-control" placeholder="Masukan deskripsi"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="">Jumlah</label>
-                        <input type="number" name="jumlah" class="form-control" placeholder="Jumlah" autocomplete="off">
+                        <input type="number" name="jumlah" class="form-control" placeholder="Masukan jumlah" autocomplete="off">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -130,16 +158,52 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
+function updateEl(data) {
+    var url = "{{ route('find', ['id' => ':id']) }}";
+        url = url.replace(':id', data.val());
+
+    $('.loading').removeClass('d-none');
+
+    var $select = $('#id_penjualan_detail');
+    $select.empty();
+    $select.append($(`<option value=''>--Pilih--</option>`));
+
+    return $.ajax({
+        headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+        url: url,
+        method: "GET"
+    }).done(function(data) {
+        var newOptions = data.data;
+
+        if(newOptions.length > 0){
+            for(var i=0; i < newOptions.length; i++){
+                $select.append($(`<option value='${newOptions[i].id_penjualan_detail}'>${newOptions[i].barang.nama_barang} - ${newOptions[i].jumlah_barang_keluar} barang</option>`));
+            }
+        }
+
+        $('.loading').addClass('d-none');
+    }).fail(function(){
+        $('.loading').addClass('d-none');
+    });
+}
 $(document).ready(function() {
+    $('.select-barang').select2({ width: '100%' });
+
+    $('#id_penjualan').change( function(){
+        updateEl($(this));
+    });
+
     var table = $('#table').DataTable({
         processing: true,
         ajax: '{{ route("retur.index") }}',
         columns: [
             { data: 'DT_RowIndex', name:'DT_RowIndex', searchable: false },
-            { data: 'penjualan.customer.nama_customer', name: 'nama_customer' },
-            { data: 'barang', name: 'barang' },
+            { data: 'penjualan.barang_keluar.customer.nama_customer', name: 'nama_customer' },
+            { data: 'penjualan.barang.nama_barang', name: 'nama_barang' },
             { data: 'tanggal_barang_retur', name: 'tanggal_barang_retur' },
             { data: 'deskripsi', name: 'deskripsi' },
             { data: 'jumlah', name: 'jumlah' },

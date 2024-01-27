@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\BarangKeluar;
+use App\Models\BarangKeluarDetail;
 use App\Models\Retur;
 use DataTables;
 
@@ -15,43 +16,14 @@ class ReturController extends Controller
         $barang = BarangKeluar::with(['customer', 'barang'])->get();
 
         if($request->ajax()) {
-            $data = Retur::with(['penjualan.customer', 'penjualan.barang'])->latest();
+            $data = Retur::with(['penjualan.barangKeluar.customer', 'penjualan.barang'])->latest();
             
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('barang', function($data) {
-                    $view = '<table class="table table-bordered">';
-                    $total = 0;
-
-                    $view .= '<tr>
-                        <th>Nama barang</th>
-                        <th>Jumlah</th>
-                        <th>Harga satuan</th>
-                        <th>Total</th>
-                    </tr>';
-
-                    foreach ($data->penjualan->barang as $item) {
-                        $total += $item->jumlah_barang_keluar * $item->barang->harga_barang;
-                        $view .= '<tr>
-                            <td>'. $item->barang->nama_barang .'</td>
-                            <td>'. $item->jumlah_barang_keluar .'</td>
-                            <td>'. $item->barang->harga_barang .'</td>
-                            <td>'. $item->jumlah_barang_keluar * $item->barang->harga_barang .'</td>
-                        </tr>';
-                    }
-
-                    $view .= '<tr>
-                        <td colspan="3">Toal harga</td>
-                        <td>'. $total .'</td>
-                    </tr>';
-
-                    $view .= '</table>';
-                    return $view;
-                })
                 ->addColumn('aksi', function($data) {
                     return '<a href="#" class="btn btn-sm btn-danger mt-2 mt-lg-0 mb-2 mb-lg-0 delete" data-id="'. $data->id_barang_retur .'">Delete</a>';
                 })
-                ->rawColumns(['barang', 'aksi'])
+                ->rawColumns(['aksi'])
                 ->make(true);
         }
 
@@ -62,15 +34,20 @@ class ReturController extends Controller
     {
         $request->validate([
             'tanggal' => 'required',
-            'id_penjualan' => 'required',
+            'id_penjualan_detail' => 'required',
             'deskripsi' => 'required',
             'jumlah' => 'required',
         ]);
 
+        $check = BarangKeluarDetail::findOrFail($request->id_penjualan_detail);
+        if($check->jumlah_barang_keluar < $request->jumlah) {
+            return $this->res(422, 'Gagal', 'Jumlah yang diminta melebihi barang yang dibeli');
+        }
+
         try {
             $data = Retur::create([
                 'tanggal_barang_retur' => $request->tanggal,
-                'id_penjualan' => $request->id_penjualan,
+                'id_penjualan_detail' => $request->id_penjualan_detail,
                 'deskripsi' => $request->deskripsi,
                 'jumlah' => $request->jumlah,
             ]);

@@ -145,7 +145,7 @@
                     @else
                         <th>No</th>
                         <th>Nama customer</th>
-                        <th>List barang</th>
+                        <th>Barang</th>
                         <th>Deskripsi</th>
                         <th>Jumlah</th>
                         <th>Tanggal retur</th>
@@ -225,40 +225,15 @@
                     @else
                         <tr>
                             <td>{{ $no++ }}</td>
-                            <td>{{ $item->penjualan->customer->nama_customer }}</td>
-                            <td>
-                                <table style="width: 100%">
-                                    @php
-                                        $total2 = 0;
-                                    @endphp
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama customer</th>
-                                        <th>List barang</th>
-                                        <th>Tanggal retur</th>
-                                    </tr>
-                                    @foreach ($item->penjualan->barang as $val)
-                                        @php
-                                            $total += $val->jumlah_barang_keluar * $val->barang->harga_barang;
-                                            $total2 += $val->jumlah_barang_keluar * $val->barang->harga_barang;
-                                        @endphp
-                                        <tr>
-                                            <td>{{ $val->barang->nama_barang }}</td>
-                                            <td>{{ $val->jumlah_barang_keluar }}</td>
-                                            <td>Rp.{{ number_format($val->barang->harga_barang) }}</td>
-                                            <td>Rp.{{ number_format($val->jumlah_barang_keluar * $val->barang->harga_barang) }}</td>
-                                        </tr>
-                                    @endforeach
-                                    <tr>
-                                        <td colspan="3">Total:</td>
-                                        <td>Rp.{{ number_format($total2) }}</td>
-                                    </tr>
-                                </table>
-                            </td>
+                            <td>{{ $item->penjualan->barangKeluar->customer->nama_customer }}</td>
+                            <td>{{ $item->penjualan->barang->nama_barang }}</td>
                             <td>{{ $item->deskripsi }}</td>
                             <td>{{ $item->jumlah }}</td>
                             <td>{{ $item->tanggal_barang_retur }}</td>
                         </tr>
+                        @php
+                            $total += $item->jumlah;
+                        @endphp
                     @endif
                 @endforeach
                 
@@ -274,7 +249,7 @@
                         <td>Rp.{{ number_format($total) }}</td>
                     @else
                         <td colspan="5"><b>Total retur</b></td>
-                        <td>Rp.{{ number_format($total) }}</td>
+                        <td>{{ $total }}</td>
                     @endif
                 </tr>
             </tbody>

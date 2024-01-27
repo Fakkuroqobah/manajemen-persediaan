@@ -34,6 +34,8 @@ Route::resource('barang', BarangController::class);
 Route::resource('customer', CustomerController::class);
 Route::resource('retur', ReturController::class);
 
+Route::get('find/{id}', [BarangKeluarController::class, 'find'])->name('find');
+
 // Route::middleware(['auth:kasir'])->group(function () {
     Route::get('/cashier/dashboard', [KasirDashboardController::class, 'index'])->name('cashier_dashboard');
     Route::get('/cashier/barang', [KasirBarangController::class, 'index'])->name('cashier_barang');

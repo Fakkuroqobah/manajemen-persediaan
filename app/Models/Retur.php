@@ -13,6 +13,6 @@ class Retur extends Model
 
     public function penjualan()
     {
-        return $this->belongsTo('App\Models\BarangKeluar', 'id_penjualan', 'id_penjualan');
+        return $this->belongsTo('App\Models\BarangKeluarDetail', 'id_penjualan_detail', 'id_penjualan_detail');
     }
 }

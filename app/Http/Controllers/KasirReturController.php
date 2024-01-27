@@ -62,13 +62,14 @@ class KasirReturController extends Controller
     {
         $request->validate([
             'tanggal' => 'required',
-            'id_penjualan' => 'required'
+            'id_penjualan_detail' => 'required',
+            'jumlah' => 'required'
         ]);
 
         try {
             $data = Retur::create([
                 'tanggal_barang_retur' => $request->tanggal,
-                'id_penjualan' => $request->id_penjualan
+                'id_penjualan_detail' => $request->id_penjualan_detail
             ]);
 
             return $this->res(201, 'Berhasil', $data);
